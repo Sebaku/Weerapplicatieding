@@ -5,42 +5,47 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.Semaphore;
 
 class client {
     public static void main(String args[]){
         try {
-            Semaphore sem = new Semaphore(1);
             ServerSocket socket = new ServerSocket(7789);
-            ConcurrentLinkedQueue queue = new ConcurrentLinkedQueue();
-            String station = "";
+            
             Thread t1 = new Thread();
             t1.start();
             Thread thread1;
-            Socket sock;
+            //Socket sock;
             System.out.println("Werkt");           
             while(true){
-                sock = socket.accept();
-                thread1 = new Thread();
-                thread1.start();
-                System.out.println(sock.getInputStream());
-                try {
-        			BufferedReader in = new BufferedReader(new InputStreamReader(sock.getInputStream()));
-        			String inputLine;
-        			//Parser parser = new Parser();
-        			
-        	        while ((inputLine = in.readLine()) != null) {
-        				inputLine = inputLine.trim();
-        				//parser.parseLine(inputLine);
-        				System.out.println(inputLine);       				
-        				if (findStation(inputLine) != "test3") 
-        					station = findStation(inputLine);
-        				fileWriter(inputLine, "C:/Users/Sebas/eclipse-workspace/Project 2.2/src/db/" +station+ ".txt");
-        	        }
-                } catch (IOException e) {
-        			e.printStackTrace();
-        		} 
+                final Socket sock = socket.accept();
+                new Thread() {
+                	public void run() {
+		                try {
+							System.out.println(sock.getInputStream());
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+                		String station = "";
+		                try {
+		        			BufferedReader in = new BufferedReader(new InputStreamReader(sock.getInputStream()));
+		        			String inputLine;
+		        			
+		        	        while ((inputLine = in.readLine()) != null) {
+		        				inputLine = inputLine.trim();       				      				
+		        				if (findStation(inputLine) != "") 
+		        					station = findStation(inputLine);
+		        				inputLine = parser(inputLine);
+		        				if (inputLine != "") {
+		        					fileWriter(inputLine, "C:/Users/Sebas/eclipse-workspace/Project 2.2/src/db/" +station+ ".txt");
+		        					//System.out.println(inputLine);
+		        				}
+		        				
+		        	        }
+		                } catch (IOException e) {
+		        			e.printStackTrace();
+		        		}
+                }}.start();
            }
         } catch (Exception e) {
             System.out.println("Werkt niet");
@@ -60,11 +65,37 @@ class client {
     }
     
     public static String findStation(String var1) {
-    	String output = "test3";
+    	String output = "";
     	String temp = "";
     	if(var1.startsWith("<STN>")) {
 			temp = var1.replace("<STN>", "");
 			output = temp.replace("</STN>", "");
+    	}
+    	return output;
+    }
+    
+    public static String parser(String var1) {
+    	String output = "";
+    	String temp = "";
+    	if(var1.startsWith("<DATE>")) {
+    		temp = var1.replace("<DATE>", "");
+			output = temp.replace("</DATE>", "");
+			output = "Date: " + output + " ";
+    	}
+    	else if(var1.startsWith("<TIME>")){
+    		temp = var1.replace("<TIME>", "");
+			output = temp.replace("</TIME>", "");
+			output = "Time: " + output + " ";
+    	}
+    	else if(var1.startsWith("<STP>")){
+    		temp = var1.replace("<STP>", "");
+			output = temp.replace("</STP>", "");
+			output = "Air: " + output + " ";
+    	}
+    	else if(var1.startsWith("<PRCP>")){
+    		temp = var1.replace("<PRCP>", "");
+			output = temp.replace("</PRCP>", "");
+			output = "Rain: " + output + " ";
     	}
     	return output;
     }
