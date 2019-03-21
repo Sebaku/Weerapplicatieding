@@ -1,0 +1,87 @@
+body {
+    background-image: url(weather-background.jpg);
+    height: 700px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size:cover;
+}
+.form{
+    width: 620px;
+    margin: 40px auto;
+    padding: 30px;
+    position: relative;
+
+    border-style: double double solid solid;
+    border-color: darkgrey;
+    background: white;
+}
+
+.form h1 {
+    color: #000000;
+    font-family: "Georgia", serif;
+    font-style: normal;
+    font-size: 25px;
+    font-weight: normal;
+}
+
+.form h2 {
+    color: #000000;
+    font-family: "Arial", Arial, sans-serif;
+    font-style: normal;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.form img {
+    width: 200px;
+    height: 110px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+.form .field{
+    color: darkgrey;
+    font-family: "Arial", Arial, sans-serif;
+    font-size: 15px;
+
+}
+
+.form input[type=text],
+.form input[type=password] {
+    width: 100%;
+    padding: 12px;
+    margin: 5px auto;
+    display: inline-block;
+    border: 1px solid darkgrey;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+
+.form input[type=text]:focus,
+.form input[type=password]:focus {
+    border-color: #0298b3;
+    border-radius: 5px;
+    outline: none;
+}
+.form input[type=submit] {
+    width: 120px;
+    background-color: #ED1A3D;
+    color: white;
+    padding: 14px;
+    border: none;
+    border-radius: 22px;
+    cursor: pointer;
+
+    font-family: "Arial", Arial, sans-serif;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.form p[id="loginFailed"]{
+    color: red;
+
+    font-family: "Arial", Arial, sans-serif;
+    font-size: 15px;
+}

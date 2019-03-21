@@ -1,0 +1,45 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Login</title>
+        <link rel="stylesheet" type="text/css" href="LogIn.css">
+    </head>
+    <body>
+    <form class="form" method="post">
+        <img src="Singtel_logo.svg.png">
+        <h1>Welcome to My Account</h1>
+        <h2>Login to access all your services</h2>
+        <br>
+        <p id="loginFailed"></p>
+        <p class="field">
+        <label for="sop">Singtel OnePass</label><br>
+        <input type="text" name="sop" id="sop" placeholder="Email / Mobile number">
+        </p>
+        <p class="field">
+        <label for="psw">Password</label><br>
+            <input type="password" name="psw" id="psw" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;">
+        </p>
+        <p class="submit">
+        <input type="submit" onclick="check(this.form); return false;" value="Log in">
+        </p>
+    </form>
+    <script type="text/javascript">
+        function check(form){
+            if(form.sop.value == "weathersensation@singtel.com" && form.psw.value == "Singtel"){
+                window.location.href="/tabel.html";
+            }
+            else if(form.sop.value == ""){
+                document.getElementById("loginFailed").innerHTML ="Please enter your Login ID."
+            }
+            else if(form.psw.value == ""){
+                document.getElementById("loginFailed").innerHTML ="Please enter your password."
+            }
+            else {
+                document.getElementById("loginFailed").innerHTML ="You have entered invalid User ID and/or password. Please re-try."
+            }
+        }
+    </script>
+    </body>
+</html>

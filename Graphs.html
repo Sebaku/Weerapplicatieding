@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Graphs</title>
+    <script src="Chart.js"></script>
+</head>
+<body>
+<div class="Chart-container" style="position:relative; height: 40vh; width:80vw">
+<canvas id="Chart">
+<script>
+    var ctx = document.getElementById("Chart").getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ["11:22:11","11:22:12","11:22:13","11:22:14","11:22:15","11:22:16"],
+            datasets: [{
+                label: 'Rainfall',
+                data: [0.12,0.12,0.12,0.12,0.12,0.12],
+                backgroundColor: [
+                    'rgba(255, 255, 255, 0)'
+                ],
+                borderColor: [
+                    'rgba(239, 25, 61)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero:true
+                    }
+                }]
+            }
+        }
+    });
+</script>
+</canvas>
+</div>
+</body>
+</html>
